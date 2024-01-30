@@ -1,0 +1,63 @@
+---
+- name: Update all packages to their latest version
+  ansible.builtin.apt:
+    name: "*"
+    state: latest
+
+#- name: Install Nginx and PHP-FPM
+#  apt:
+#    name: "{{ item }}"
+#    state: present
+#  with_items:
+#    - nginx
+#    - php-fpm
+#
+#- name: Configure Nginx
+#  template:
+#    src: nginx.conf.j2
+#    dest: /etc/nginx/sites-available/default
+#  notify: Reload Nginx
+#
+# - name: Configure PHP-FPM
+# template:
+#   src: php-fpm.conf.j2
+#   dest: /etc/php/{{ php_version }}/fpm/php-fpm.conf
+# notify: Restart PHP-FPM
+
+#- name: Create index.php
+# copy:
+#   content: "<?php phpinfo();?>"
+#   dest: /var/www/html/index.php
+
+- name: Install Nginx and PHP-FPM
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - nginx
+    - php-fpm
+
+- name: Create DocumentRoot directory
+  file:
+    path: /opt/nginx/ansible
+    state: directory
+    owner: www-data
+    group: www-data
+    mode: 0755
+
+- name: Configure Nginx
+  template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/sites-available/default
+  notify: Reload Nginx
+
+- name: Configure PHP-FPM
+  template:
+    src: php-fpm.conf.j2
+    dest: /etc/php/{{ php_version }}/fpm/php-fpm.conf
+  notify: Restart PHP-FPM
+
+- name: Create index.php
+  copy:
+    content: "<?php phpinfo();?>"
+    dest: /opt/nginx/ansible/index.php

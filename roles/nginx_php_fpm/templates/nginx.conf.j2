@@ -1,0 +1,33 @@
+# roles/nginx_php_fpm/templates/nginx.conf.j2
+
+## Задание B6.9.2 п.3
+#server {
+#   listen 80 default_server;
+#   server_name localhost;
+
+#   root /var/www/html;
+#   index index.php index.html index.htm;
+
+#   location ~ \.php$ {
+#       include snippets/fastcgi-php.conf;
+#       fastcgi_pass unix:/var/run/php/{{ php_version }}/fpm.sock;
+#       fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+#       include fastcgi_params;
+#   }
+#}
+
+
+server {
+    listen 80 default_server;
+    server_name localhost;
+
+    root /opt/nginx/ansible;
+    index index.php index.html index.htm;
+
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/var/run/php/{{ php_version }}/fpm.sock;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        include fastcgi_params;
+    }
+}

@@ -1,0 +1,7 @@
+---
+- name: Установка и запуск DNS-сервера dnsmasq.  
+  hosts: srv-dnsmasq
+  gather_facts: no
+  become: true
+  roles: 
+    - svr-dnsmasq

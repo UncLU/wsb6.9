@@ -1,0 +1,6 @@
+# handlers file for svr-dnsmasq
+---
+- name: Restart dnsmasq
+  service:
+    name: dnsmasq
+    state: restarted
