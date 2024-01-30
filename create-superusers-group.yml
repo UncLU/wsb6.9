@@ -1,0 +1,25 @@
+---
+- name: Create superusers group and configure sudo
+  hosts: srv-dnsmasq
+  become: yes
+  tasks:
+    - name: Ensure superusers group exists
+      group:
+        name: superusers
+        state: present
+
+    - name: Add user2 and user3 to superusers group
+      user:
+        name: "{{ item }}"
+        groups: superusers
+        append: yes
+      loop:
+        - user2
+        - user3
+
+    - name: Configure sudoers file for superusers group
+      lineinfile:
+        path: /etc/sudoers
+        line: "%superusers ALL=(ALL) NOPASSWD: /usr/bin/sudo -i"
+        validate: 'visudo -cf %s'
+      notify: Restart sudo

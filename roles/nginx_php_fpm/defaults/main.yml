@@ -1,0 +1,4 @@
+---
+# defaults file for nginx_php_fpm
+
+php_version: 8.1

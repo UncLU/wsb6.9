@@ -1,0 +1,26 @@
+# Listen on the specified addresses
+#listen-address={{ dnsmasq_listen_address }}
+
+# Size of the cache
+#cache-size={{ dnsmasq_cache_size }}
+
+# Use the resolv file for upstream DNS servers
+#resolv-file={{ dnsmasq_resolv_file }}
+
+
+# Basic settings
+listen-address=127.0.0.1
+bind-interfaces
+pid-file=/var/run/dnsmasq/dnsmasq.pid
+
+# Cache settings
+cache-size=1000
+
+# DNS resolution
+no-resolv
+server=8.8.8.8
+server=8.8.4.4
+
+# Other settings
+domain-needed
+bogus-priv

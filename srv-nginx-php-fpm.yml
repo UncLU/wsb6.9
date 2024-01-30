@@ -1,0 +1,7 @@
+---
+- name: Установка и запуск сервера с ролями nginx php fpm  
+  hosts: srv-nginx-php-fpm
+  gather_facts: no
+  become: true
+  roles: 
+    - nginx_php_fpm 

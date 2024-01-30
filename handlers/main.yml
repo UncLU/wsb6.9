@@ -1,0 +1,8 @@
+# handlers/main.yml
+
+---
+- name: Restart sudo
+  service:
+    name: sudo
+    state: restarted
+
